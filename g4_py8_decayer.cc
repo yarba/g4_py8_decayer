@@ -30,21 +30,14 @@
 #include "Py8DecayerPhysics.hh"
 
 #include "DetConstruction.hh"
-#include "TauGun.hh"
+#include "SinglePartGun.hh"
+// ---> if needs be ---> #include "Py8Z2TauGun.hh"
 
 #include "G4RunManager.hh"
-// ---> #include "G4UImanager.hh"
 #include "FTFP_BERT.hh"
-#include "G4ThreeVector.hh"
 #include "G4SystemOfUnits.hh"
-
-// ---> #include "G4VisExecutive.hh"
-// ---> #include "G4UIExecutive.hh"
-
 #include "Randomize.hh"
-
 #include "G4GeometryManager.hh"
-// --> #include "G4StateManager.hh"
 
 // int main(int argc,char** argv)
 int main()
@@ -71,9 +64,12 @@ int main()
    physicsList->RegisterPhysics(new Py8DecayerPhysics());
    runManager->SetUserInitialization(physicsList);
    //
-   // Set user action classes, e.g. TauGun (prim.generator), etc.
+   // Set user action classes, e.g. prim.generator (tau- gun), etc.
    //
-   runManager->SetUserAction( new TauGun() );
+   //                                          prt_name prt_mom
+   runManager->SetUserAction( new SinglePartGun( "tau-", 25.0 ) );
+//
+// ---> if needs be --->     runManager->SetUserAction( new Py8Z2TauGun() );
 
    // Run initialization
    //
@@ -101,4 +97,7 @@ int main()
   //                 owned and deleted by the run manager, so they should not
   //                 be deleted in the main() program !
   delete runManager;
+
+  return 0;
+
 }

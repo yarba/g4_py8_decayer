@@ -50,7 +50,7 @@ int main()
     pythia.event.append( partID, 1, 0, 0, 0., 0., partPz, partE, partMass );
     
     pythia.next();
-    
+        
     std::cout << "Everything is done " << std::endl;
     
    return 0;
