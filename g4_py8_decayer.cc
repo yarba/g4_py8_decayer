@@ -30,6 +30,7 @@
 #include "Py8DecayerPhysics.hh"
 
 #include "DetConstruction.hh"
+#include "TrkAction.hh"
 #include "SinglePartGun.hh"
 // ---> if needs be ---> #include "Py8Z2TauGun.hh"
 
@@ -71,6 +72,15 @@ int main()
 //
 // ---> if needs be --->     runManager->SetUserAction( new Py8Z2TauGun() );
 
+   // NOTE: this component derives from G4UserTrackingAction
+   //       and serves largely as a "tester", i.e. to make sure
+   //       various secondaries resulting from decays, and 
+   //       all subsequent particles are all processed sensibly
+   //
+   //       it's quite verbose, so use it only if really needed
+   //
+// ---> if needs be --->   runManager->SetUserAction( new TrkAction() );
+   
    // Run initialization
    //
    runManager->InitializeGeometry();
