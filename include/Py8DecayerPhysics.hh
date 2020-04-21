@@ -9,7 +9,7 @@ class G4Decay;
 class Py8DecayerPhysics: public G4VPhysicsConstructor
 {
   public:
-    Py8DecayerPhysics(const G4String& name = "Py8ExtDecayer");
+  Py8DecayerPhysics(G4int verb=1);
     virtual ~Py8DecayerPhysics();
 
   protected:

@@ -7,8 +7,14 @@
 #include <G4Decay.hh>
 #include <G4DecayTable.hh>
 
-Py8DecayerPhysics::Py8DecayerPhysics(const G4String& name)
-  : G4VPhysicsConstructor(name)
+// factory
+#include "G4PhysicsConstructorFactory.hh"
+// register it with contructor factory
+G4_DECLARE_PHYSCONSTR_FACTORY(Py8DecayerPhysics);
+
+
+Py8DecayerPhysics::Py8DecayerPhysics(G4int)
+  : G4VPhysicsConstructor("Py8DecayerPhysics")
 {
 }
 
