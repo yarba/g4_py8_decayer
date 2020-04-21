@@ -13,17 +13,17 @@ class SinglePartGun : public G4VUserPrimaryGeneratorAction
 {
 
    public:
-   
+
       //ctor & dtor
       // ---> SinglePartGun();
       SinglePartGun( const G4String&, const double );
       ~SinglePartGun();
-      
+
       // methods/functions
-      virtual void GeneratePrimaries( G4Event* );   
-   
+      virtual void GeneratePrimaries( G4Event* );
+
    private:
-   
+
       // data members
       G4ParticleGun* fGun;
       double         fMomentum;
