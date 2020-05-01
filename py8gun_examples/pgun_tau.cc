@@ -30,6 +30,14 @@ int main()
     //                                    px  py
     pythia.event.append( partID, 1, 0, 0, 0., 0., partPz, partE, partMass );
     
+    // (re-)set polarization from its default=9.0 (which means hell knows what...)
+    //
+    // NOTE: in such case TauDecays::decay will eventually treat it
+    //       as "external tau" even if TauDecay::mode will remain at 1 (D)
+    //       rather than being formally reset to 5 (ext.tau)
+    //
+    pythia.event.back().pol(-1.);
+
     pythia.next();
     
     std::cout << "Everything is done " << std::endl;
