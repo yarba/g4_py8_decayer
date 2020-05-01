@@ -76,12 +76,20 @@ G4DecayProducts* Py8Decayer::ImportDecayProducts(const G4Track& track)
    
    // NOTE: Energy in GeV 
 
+   // G4ThreeVector& polarz = track.GetPolarization();
+   
    fDecayer->event.append( pdgid, 1, 0, 0, 
                            track.GetMomentum().x() / CLHEP::GeV, 
 			   track.GetMomentum().y() / CLHEP::GeV,  
 			   track.GetMomentum().z() / CLHEP::GeV,
 			   track.GetDynamicParticle()->GetTotalEnergy() / CLHEP::GeV,
 			   pd->GetPDGMass() / CLHEP::GeV );
+
+//
+//   double delta_phi = track.GetPolarization().angle( track.GetMomentumDirection() );
+//   double cos_delta_phi = cos( delta_phi );
+//   fDecayer->event.back().pol( cos_delta_phi );
+   fDecayer->event.back().pol( cos( track.GetPolarization().angle( track.GetMomentumDirection() ) ) );
 
 /* NOT sure if this is really needed...
    // NOTE: space-time coordinates all in mm, i.e. units are chosen such that 
