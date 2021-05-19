@@ -35,7 +35,7 @@
 #include "DetConstruction.hh"
 #include "TrkAction.hh"
 #include "SinglePartGun.hh"
-// ---> if needs be ---> #include "Py8Z2TauGun.hh"
+// ---> if desired ---> #include "Py8Z2TauGun.hh"
 
 #include "G4RunManager.hh"
 #include "FTFP_BERT.hh"
@@ -72,7 +72,7 @@ int main(int argc,char** argv)
 
    // Construct the default run manager
    //
-   G4RunManager * runManager = new G4RunManager();
+   G4RunManager* runManager = new G4RunManager();
 
    // Set mandatory initialization classes
    //
@@ -119,7 +119,7 @@ int main(int argc,char** argv)
    //                                          prt_name prt_mom
    runManager->SetUserAction( new SinglePartGun( "tau-", 25.0 ) );
 //
-// ---> if needs be --->     runManager->SetUserAction( new Py8Z2TauGun() );
+// ---> if desired --->      runManager->SetUserAction( new Py8Z2TauGun() );
 
    // NOTE: this component derives from G4UserTrackingAction
    //       and serves largely as a "tester", i.e. to make sure
