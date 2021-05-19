@@ -12,7 +12,7 @@ Below are the steps for building Pythia8, Geant4, and this example.
 These instructions have been tested on FNAL WC-IC cluster (head node wc.fnal.gov).
 They're expected to work also on FNAL Geant4 VM (geant4vmgp01.fnal.gov).
 
-In general, only setting the compiler and cmake are kind of /"FNAL-centric/"; 
+In general, only setting the compiler and cmake are kind of "FNAL-centric"; 
 apart from that the described procedure should work on other platforms, e.g. lxplus,cern.sh, etc.
 
 * Setup compiler and cmake
@@ -33,7 +33,7 @@ tar xzf pythia8305.tgz
 
 cd pythia8305
 
-export CXX=/`which g++/`
+export CXX=\`which g++\`
 
 ./configure --prefix=$PWD --cxx=$CXX
 
