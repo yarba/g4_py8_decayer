@@ -58,19 +58,24 @@ void Py8DecayerPhysics::ConstructProcess()
          G4Decay* decay = dynamic_cast<G4Decay*>((*processVector)[i]);
          if ( decay ) 
 	 {
-	    // set ext decayer to all particles that don't have a decay table
-	    if ( !particle->GetDecayTable() )
-	    {
-	       decay->SetExtDecayer(extDecayer);
-	    }
-	    // now for tau's remove the existing decay table and set ext decayer
-	    if ( abs(particle->GetPDGEncoding()) == 15 )
+	    // remove native/existing decay table for
+	    // a)tau's 
+	    // b) B+/- 
+	    // and replace with external decayer
+	    if ( abs(particle->GetPDGEncoding()) == 15 ||
+	         abs(particle->GetPDGEncoding()) == 521 )
 	    {
 	       if ( particle->GetDecayTable() )
 	       {
 	          delete particle->GetDecayTable();
 		  particle->SetDecayTable(nullptr);
 	       }
+	       decay->SetExtDecayer(extDecayer);
+	    }
+	    // now set external decayer to all particles 
+	    // that don't yet have a decay table
+	    if ( !particle->GetDecayTable() )
+	    {
 	       decay->SetExtDecayer(extDecayer);
 	    }
 	 }

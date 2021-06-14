@@ -1,6 +1,11 @@
 #----------------------------------------------------------------------------
 # Setup the project
-cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
+
+cmake_minimum_required(VERSION 3.8...3.18)
+if(${CMAKE_VERSION} VERSION_LESS 3.12)
+  cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
+endif()
+
 project(g4_py8_decayer)
 
 #----------------------------------------------------------------------------
@@ -23,21 +28,28 @@ include(${Geant4_USE_FILE})
 #----------------------------------------------------------------------------
 # Find Pythia8 (required package)
 #
-# NEED TO SET IT UP
+# Ideally, should be done via find_package:
 #
 # ---> find_package(Pythia8 REQUIRED)
 
-find_library( PYTHIA8_LIBRARIES NAMES pythia8 PATHS $ENV{PYTHIA8_LIB_DIR} NO_DEFAULT_PATH )
-message("PY8 LIBS: ${PYTHIA8_LIBRARIES}")
+find_library( PYTHIA8_LIBRARIES NAMES pythia8 
+			     HINTS $ENV{PYTHIA8} $ENV{PYTHIA8}/lib)
+if(NOT PYTHIA8_LIBRARIES)
+  message(FATAL_ERROR "pythia8 library not found")
+endif()
 
-message("PY8 INCLUDES: $ENV{PYTHIA8_INCLUDE_DIR}")
+find_path( PYTHIA8_INCLUDES Pythia8/Pythia.h
+           HINTS $ENV{PYTHIA8} $ENV{PYTHIA8}/include $ENV{PYTHIA8}/include/Pythia8 )
+if (NOT PYTHIA8_INCLUDES )
+  message(FATAL_ERROR "pythia8 include directory not found")
+endif()
 
 #----------------------------------------------------------------------------
 # Locate sources and headers for this project
 #
 include_directories(${PROJECT_SOURCE_DIR}/include 
                     ${Geant4_INCLUDE_DIR}
-                    $ENV{PYTHIA8_INCLUDE_DIR})
+		    ${PYTHIA8_INCLUDES})
 
 file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc ${PROJECT_SOURCE_DIR}/src/*.c)
 file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
@@ -67,16 +79,4 @@ target_link_libraries(g4_py8_decayer  ${Geant4_LIBRARIES} ${PYTHIA8_LIBRARIES} )
 #    )
 #endforeach()
 
-#----------------------------------------------------------------------------
-# Add program to the project targets
-# (this avoids the need of typing the program name after make)
-#
-# ---> DO WE NEED IT ???
-#
-# add_custom_target(decayer6 DEPENDS pythia6_decayer)
-
-#----------------------------------------------------------------------------
-# Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX
-#
-install(TARGETS g4_py8_decayer DESTINATION bin)
 

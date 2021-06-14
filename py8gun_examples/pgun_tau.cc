@@ -11,7 +11,13 @@ int main()
    ParticleData& pdt = pythia.particleData;
 
     pythia.readString("ProcessLevel:all = off"); // the trick!
-    pythia.readString("ProcessLevel::resonanceDecays=on");
+    pythia.readString("ProcessLevel:resonanceDecays=on");
+    
+    // this will NOT do anything unless polarization is set
+    // (see later in the code)
+    //
+    // pythia.readString("TauDecays:mode=5");    
+    // pythia.readString("TauDecays:externalMode=0");
 
     pythia.init();
     

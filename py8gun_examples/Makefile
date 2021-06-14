@@ -4,17 +4,19 @@
 SHELL=/usr/bin/env bash
 
 # Include the configuration.
--include ${PYTHIA8_DIR}/examples/Makefile.inc
 
-# Check distribution (use local version first, then installed version).
-#ifneq ("$(wildcard ../lib/libpythia8.*)","")
-#  PREFIX_LIB=../lib
-#  PREFIX_INCLUDE=../include
-#endif
-PREFIX_LIB=${PYTHIA8_LIB_DIR}
-PREFIX_INCLUDE=${PYTHIA8_INCLUDE_DIR}
+CXX=`which g++`
+
+PREFIX_LIB=${PYTHIA8}/lib
+PREFIX_INCLUDE=${PYTHIA8}/include
+
+CXX_COMMON=-O2 -std=c++11 -pedantic -W -Wall -Wshadow -fPIC
+
+LIB_SUFFIX=.so
+
 CXX_COMMON:=-I$(PREFIX_INCLUDE) $(CXX_COMMON) $(GZIP_LIB)
 CXX_COMMON+= -L$(PREFIX_LIB) -Wl,-rpath,$(PREFIX_LIB) -lpythia8 -ldl
+
 PYTHIA=$(PREFIX_LIB)/libpythia8$(LIB_SUFFIX)
 
 ################################################################################

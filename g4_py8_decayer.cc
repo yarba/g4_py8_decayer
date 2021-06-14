@@ -117,7 +117,8 @@ int main(int argc,char** argv)
    // Set user action classes, e.g. prim.generator (tau- gun), etc.
    //
    //                                          prt_name prt_mom
-   runManager->SetUserAction( new SinglePartGun( "tau-", 25.0 ) );
+//   runManager->SetUserAction( new SinglePartGun( "tau-", 25.0 ) );
+   runManager->SetUserAction( new SinglePartGun( "B-", 25.0 ) );
 //
 // ---> if desired --->      runManager->SetUserAction( new Py8Z2TauGun() );
 
